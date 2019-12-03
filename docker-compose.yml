@@ -1,0 +1,29 @@
+version: '3'
+services:
+    mysql:
+        container_name: container_mysql_s4_sample
+        build:
+            context: ./docker/db
+            dockerfile: Dockerfile.mysql
+        # image: mysql:s4
+        volumes:
+            - ./.data/mysql:/var/lib/mysql:rw
+        env_file:
+            - docker-compose.env
+        ports:
+            - "3306:3306"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: container_phpmyadmin_s4_sample
+        ports:
+            - "8080:80"
+        expose:
+            - "8080"
+        env_file:
+            - docker-compose.env           
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=${MYSQL_HOST}
+        restart: always
+        depends_on:
+            - mysql
