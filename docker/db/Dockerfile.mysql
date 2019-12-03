@@ -1,0 +1,5 @@
+FROM mysql:5.7
+
+MAINTAINER Héctor Franco Aceituno <hector.franco.aceituno@mail.com>
+
+COPY mysql.cnf /etc/mysql/conf.d/custom.cnf
